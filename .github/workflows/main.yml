@@ -9,6 +9,8 @@ jobs:
     uses: ./.github/workflows/test.yml
   call_remote:
     uses: ./.github/workflows/call_remote.yml
+    needs: test
     secrets: inherit
   final:
+    needs: call_remote
     uses: ./.github/workflows/final.yml
