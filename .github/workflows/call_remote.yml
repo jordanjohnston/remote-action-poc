@@ -2,12 +2,27 @@ name: call_remote
 on:
   workflow_call:
 jobs:
-  call:
+  dispatch:
     runs-on: ubuntu-latest
     steps:
-      - uses: convictional/trigger-workflow-and-wait@v1.6.1
+      - name: Dispatch an action and get the run ID and URL
+        uses: codex-/return-dispatch@v2
+        id: return_dispatch
         with:
-          owner: zenobeenergy
+          token: ${{ secrets.PORTAL_AUTOMATION_ACCESS_TOKEN }} # Note this is NOT GITHUB_TOKEN but a PAT
+          ref: main # or refs/heads/target_branch
           repo: portal-automation
-          workflow_file_name: pull_request.yml
-          github_token: ${{ secrets.PORTAL_AUTOMATION_ACCESS_TOKEN }}
+          owner: ZenobeEnergy
+          workflow: pull_request.yml
+          workflow_inputs: '{}' # Optional
+          workflow_timeout_seconds: 300 # Default: 300
+          distinct_id: remote-action-poc # Optional
+      - name: Await Run ID ${{ steps.return_dispatch.outputs.run_id }}
+        uses: Codex-/await-remote-run@v1.0.0
+        with:
+          token: ${{ secrets.PORTAL_AUTOMATION_ACCESS_TOKEN }}
+          repo: portal-automation
+          owner: ZenobeEnergy
+          run_id: ${{ steps.return_dispatch.outputs.run_id }}
+          run_timeout_seconds: 300 # Optional
+          poll_interval_ms: 5000 # Optional
