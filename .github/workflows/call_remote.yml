@@ -13,7 +13,7 @@ jobs:
           ref: main # or refs/heads/target_branch
           repo: portal-automation
           owner: ZenobeEnergy
-          workflow: pull_request.yml
+          workflow: validate.yml
           workflow_inputs: '{}' # Optional
           workflow_timeout_seconds: 300 # Default: 300
           distinct_id: remote-action-poc # Optional
