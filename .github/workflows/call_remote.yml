@@ -16,7 +16,6 @@ jobs:
           workflow: main.yml
           workflow_inputs: '{}' # Optional
           workflow_timeout_seconds: 120 # Default: 300
-          distinct_id: 'hi from call remote' # Optional
       - name: Await Run ID ${{ steps.return_dispatch.outputs.run_id }}
         uses: Codex-/await-remote-run@v1.0.0
         with:
