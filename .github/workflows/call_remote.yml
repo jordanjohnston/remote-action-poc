@@ -20,7 +20,7 @@ jobs:
       - name: Await Run ID ${{ steps.return_dispatch.outputs.run_id }}
         uses: Codex-/await-remote-run@v1.0.0
         with:
-          token: ${{ github.token }}
+          token: ${{ secrets.TOKEN }}
           repo: receive-action-poc
           owner: jordanjohnston
           run_id: ${{ steps.return_dispatch.outputs.run_id }}
