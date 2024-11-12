@@ -9,20 +9,15 @@ jobs:
         uses: codex-/return-dispatch@v2
         id: return_dispatch
         with:
-          token: ${{ secrets.PORTAL_AUTOMATION_ACCESS_TOKEN }} # Note this is NOT GITHUB_TOKEN but a PAT
+          token: ${{ secrets.TOKEN }} # Note this is NOT GITHUB_TOKEN but a PAT
           ref: main # or refs/heads/target_branch
-          repo: portal-automation
-          owner: ZenobeEnergy
-          workflow: validate.yml
+          repo: receive-action-poc
+          owner: jordanjohnston
+          workflow: main.yml
           workflow_inputs: '{}' # Optional
-          workflow_timeout_seconds: 300 # Default: 300
-          distinct_id: remote-action-poc # Optional
-      - name: Await Run ID ${{ steps.return_dispatch.outputs.run_id }}
-        uses: Codex-/await-remote-run@v1.0.0
-        with:
-          token: ${{ secrets.PORTAL_AUTOMATION_ACCESS_TOKEN }}
-          repo: portal-automation
-          owner: ZenobeEnergy
-          run_id: ${{ steps.return_dispatch.outputs.run_id }}
-          run_timeout_seconds: 300 # Optional
-          poll_interval_ms: 5000 # Optional
+          workflow_timeout_seconds: 120 # Default: 300
+          distinct_id: 'hi from call remote' # Optional
+      - name: Use the output run ID and URL
+        run: |
+          echo ${{steps.return_dispatch.outputs.run_id}}
+          echo ${{steps.return_dispatch.outputs.run_url}}
