@@ -1,0 +1,13 @@
+name: call_remote
+on:
+  workflow_call:
+jobs:
+  call:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: convictional/trigger-workflow-and-wait@v1.6.1
+        with:
+          owner: zenobeenergy
+          repo: portal-automation
+          workflow_file_name: pull_request.yml
+          github_token: ${{ secrets.PORTAL_AUTOMATION_ACCESS_TOKEN }}

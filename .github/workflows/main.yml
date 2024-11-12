@@ -1,0 +1,14 @@
+name: main
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+jobs:
+  test:
+    uses: ./.github/workflows/test.yml
+  call_remote:
+    uses: ./.github/workflows/call_remote.yml
+    secrets: inherit
+  final:
+    uses: ./.github/workflows/final.yml
