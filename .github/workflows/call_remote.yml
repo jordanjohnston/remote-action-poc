@@ -10,7 +10,7 @@ jobs:
         id: return_dispatch
         with:
           token: ${{ secrets.TOKEN }} # Note this is NOT GITHUB_TOKEN but a PAT
-          ref: main # or refs/heads/target_branch
+          ref: refs/heads/main # or refs/heads/target_branch
           repo: receive-action-poc
           owner: jordanjohnston
           workflow: main.yml
